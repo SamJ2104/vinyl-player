@@ -1,7 +1,7 @@
 const spotifyMeEndpoint = 'https://api.spotify.com/v1/me';
 const spotifyAuthEndpoint = 'https://accounts.spotify.com/authorize';
-const redirectUri = 'https://wmodes.github.io/webexperiments/vinyl/app.html'; // Your redirect uri
-const clientId = '873252498aa44a53a6e33c34d8b391b9'; // Your client id
+const redirectUri = 'https://vinyl.samj.app/app.html'; // Your redirect uri
+const clientId = '22346dc6ac1042d9a916f60b84be6186'; // Your client id
 
 $(document).ready(function () {
   var stateKey = 'spotifyAuthState';
