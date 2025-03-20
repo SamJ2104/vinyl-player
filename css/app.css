@@ -1,0 +1,725 @@
+
+:root {
+  --background-noise: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJhIiB4PSIwIiB5PSIwIj48ZmVUdXJidWxlbmNlIHR5cGU9ImZyYWN0YWxOb2lzZSIgYmFzZUZyZXF1ZW5jeT0iLjc1IiBzdGl0Y2hUaWxlcz0ic3RpdGNoIi8+PGZlQ29sb3JNYXRyaXggdHlwZT0ic2F0dXJhdGUiIHZhbHVlcz0iMCIvPjwvZmlsdGVyPjxwYXRoIGZpbHRlcj0idXJsKCNhKSIgb3BhY2l0eT0iLjA1IiBkPSJNMCAwaDMwMHYzMDBIMHoiLz48L3N2Zz4=);
+  --buddy-feed-width: 270px;
+  --scrollbar-vertical-size: 16px;
+  --scrollbar-horizontal-size: 16px;
+  --nav-bar-width: 232px;
+  --background-base: #121212;
+  --background-highlight: #1a1a1a;
+  --background-press: #000;
+  --background-elevated-base: #242424;
+  --background-elevated-highlight: #2a2a2a;
+  --background-elevated-press: #000;
+  --background-tinted-base: hsla(0,0%,100%,.07);
+  --background-tinted-highlight: hsla(0,0%,100%,.1);
+  --background-tinted-press: hsla(0,0%,100%,.04);
+  --background-unsafe-for-small-text-base: #121212;
+  --background-unsafe-for-small-text-highlight: #121212;
+  --background-unsafe-for-small-text-press: #121212;
+  --text-base: #fff;
+  --text-subdued: #a7a7a7;
+  --text-bright-accent: #1ed760;
+  --text-negative: #f15e6c;
+  --text-warning: #ffa42b;
+  --text-positive: #1ed760;
+  --text-announcement: #3d91f4;
+  --essential-base: #fff;
+  --essential-subdued: #727272;
+  --essential-bright-accent: #1ed760;
+  --essential-negative: #e91429;
+  --essential-warning: #ffa42b;
+  --essential-positive: #1ed760;
+  --essential-announcement: #0d72ea;
+  --decorative-base: #fff;
+  --decorative-subdued: #292929;
+}
+
+body, #content {
+  position: relative;
+  background-color: #101010;
+  color: #FFFFFF;
+  font-family: "Helvetica Neue", helvetica, arial, "Hiragino Kaku Gothic Pro", Meiryo, "MS Gothic";
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+/*
+ * MAIN PANELS
+ */
+
+div, nav {
+  /* border: solid 1px gray; */
+}
+
+#content {
+}
+
+/* desktop: natural flow; divided into two adjustable columns 
+   starting with the first column at 20% of the screen width */
+#top-panel {
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+  height: 100vh;
+  margin-top: -100px;
+  padding-top: 100px;
+  position: relative;
+  width: 100%;
+  backface-visibility: hidden;
+  will-change: overflow;
+}
+
+#left-panel {
+  flex: 0 0 20%;
+  /* The first column will take up 20% of the container width */
+  background-color: #000; /* Adjust as needed */
+  padding: 10px; /* Adjust as needed */
+  min-width: 200px;
+  /* overflow: hidden; */
+}
+
+#control-panel {
+  display: flex;
+  flex-direction: column;
+  width: calc(100% - 50px);
+  gap: 10px;
+}
+
+#recent-list {
+  overflow: auto;
+  height: auto;
+  padding: .5rem;
+  -webkit-overflow-scrolling: touch;
+  -ms-overflow-style: none;
+}
+
+#right-panel {
+  flex: 1;
+  /* The second column will take up the remaining available space */
+  background-color: #000; /* Adjust as needed */
+  /* from https://benfrain.com/independent-scrolling-panels-body-scroll-using-just-css/ */
+  overflow: auto;
+  height: auto;
+  padding: .5rem;
+  -webkit-overflow-scrolling: touch;
+  -ms-overflow-style: none;
+  height: calc(100% - 100px);
+}
+
+/* desktop: fixed at bottom of screen */
+#player-panel {
+  position: fixed;
+  bottom: 0;
+  height: 100px;
+  width: 100%;
+  /* border: solid 1px red; */
+  z-index: 4;
+  background-color: #000;
+}
+
+#search-panel {
+  position: sticky;
+  top: 0; /* Adjust the top value as needed */
+  background-color: #000; /* Add a background color if desired */
+  height: 50px;
+  width: 100%;
+  z-index: 3; /* Ensure it's above the scrolling content */
+}
+
+.search-bar-cover {
+  align-items: center;
+  bottom: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  left: 12px;
+  pointer-events: none;
+  position: absolute;
+  right: 12px;
+  top: 0;
+}
+
+.search-bar-logo-wrapper {
+  -webkit-box-flex: 1;
+  color: hsla(0,0%,100%,.7);
+  flex: 1;
+}
+
+.search-bar-logo {
+  display: block;
+  pointer-events: visible;
+  fill: currentColor;
+}
+
+/*
+ * INFO WINDOWS
+ */
+
+
+#albums-window, #detail-window {
+  /* width: 100%; */
+  margin: 0;
+  padding: 24px;
+  overflow: auto;
+}
+
+/*
+ * NAVIGATION PANEL
+ */
+
+.spotify-vinyl-logo {
+  height: 60px;
+  max-width: 145px;
+  width: 100%;
+}
+
+/*
+ * ALBUM SELECTION
+ */
+
+
+#results-list {
+  display: grid;
+  grid-gap: 24px;
+  grid-template-columns: repeat(4,minmax(0,1fr));
+}
+
+#results-list>.album {
+  -webkit-box-flex: 1;
+  background: #181818;
+  -ms-flex: 1;
+  flex: 1;
+  isolation: isolate;
+  padding: 16px;
+  position: relative;
+  -webkit-transition: background-color .3s ease;
+  transition: background-color .3s ease;
+}
+
+#results-list>.album:hover {
+  background: #282828;
+}
+
+#results-list>.album {
+  padding: 16px;
+  transition: all 0.5s;
+}
+
+#results-list>.album:hover {
+  background: #282828;
+}
+
+#results-list>.album .image {
+  position: relative;
+  width: 100%;
+}
+
+#results-list>.album img {
+  width: 100%;
+}
+
+#results-list>.album .name {
+  font-size: 1rem;
+  font-weight: 700;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+#results-list>.album .more {
+  margin-top: 10px;
+  font-size: 0.875rem;
+  color: #b3b3b3;
+  font-weight: 400;
+}
+
+#results-list>.album button {
+  opacity: 0;
+  pointer-events: auto;
+  position: absolute;
+  right: 8px;
+  bottom: 0;
+  border: 0;
+  margin: 0;
+  padding: 0;
+  vertical-align: baseline;
+  z-index: 1;
+  background-color: #1ed760;
+  color: #000;
+  border-radius: 500px;
+  min-block-size: 48px;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  inline-size: 48px;
+  block-size: 48px;
+  transition: all 0.5s;
+}
+
+#results-list>.album:hover button {
+  opacity: 1;
+  bottom: 8px;
+}
+
+#results-list>.album button:hover {
+  background-color: #1fdf64;
+  transform: scale(1.04);
+}
+
+/*
+ * ALBUM DETAILS
+ */
+
+#detail-window {
+  display: none;
+  opacity: 0;
+  background-color: rgb(184, 168, 112);
+  transition: all 0.5s;
+}
+
+#detail-window .header {
+  height: 30vh;
+  width: 100%;
+  max-height: 500px;
+  min-height: 340px;
+  color: #fff;
+  max-width: none;
+  overflow: hidden;
+  padding-bottom: 24px;
+  margin: 0;
+  position: relative;
+  background: linear-gradient(transparent 0,rgba(0,0,0,.5) 100%)
+}
+
+#detail-window .controls {
+  padding: 16px 32px;
+  padding-inline-end: 32px;
+  align-items: center;
+  display: flex;
+  gap: 16px;
+  height: 64px;
+  justify-content: space-between;
+  padding: 16px;
+  padding-inline-end: 16px;
+  position: relative;
+  width: 100%;
+  z-index: 10;
+}
+
+#detail-window .controls .close {
+  align-items: center;
+  background-color: rgba(0,0,0,.7);
+  border: none;
+  border-radius: 50%;
+  color: #fff;
+  cursor: pointer;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  height: 32px;
+  justify-content: center;
+  position: relative;
+  width: 32px;
+  opacity: 1;
+  fill: currentcolor;
+}
+
+#detail-window .album-info {
+  padding: 16px;
+  color: #fff;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  align-items: flex-end;
+  max-width: none;
+  overflow: hidden;
+  padding-bottom: 24px;
+  position: relative;
+}
+
+#detail-window .album-info .image {
+  height: 192px;
+  width: 192px;
+  z-index: 0;
+  margin-right: 24px;
+    border: solid 1px white;
+}
+
+#detail-window .album-info .type {
+  font-weight: 700;
+  font-size: .75rem;
+  margin-top: 4px;
+  text-transform: uppercase;
+    border: solid 1px white;
+}
+
+#detail-window .album-info .name {
+  line-height: normal;
+  margin-top: 8px;
+  overflow: hidden;
+  text-align: left;
+  width: 100%;
+  word-break: break-word;
+  margin: 0.08em 0px 0.12em;
+  width: 100%;
+  font-size: 4.5rem;
+  margin-block: 0px;
+  font-weight: 900;
+    border: solid 1px white;
+}
+
+#detail-window .album-info .more {
+  border: solid 1px white;
+}
+
+#detail-window .song-details {
+  background-image: linear-gradient(rgba(0,0,0,.6) 0,100%,);
+}
+
+#detail-window .details-header {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-box-align: start;
+  -ms-flex-align: start;
+  align-items: flex-start;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  padding: 0 32px;
+  padding-bottom: 24px;
+  padding-top: 24px;
+  position: relative;
+}
+
+#detail-window .details-header button.play {
+  box-sizing: border-box;
+  font-size: 1.125rem;
+  font-weight: 700;
+  background-color: transparent;
+  border: 0px;
+  border-radius: 500px;
+  display: inline-block;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  text-transform: none;
+  touch-action: manipulation;
+  transition-duration: 33ms;
+  transition-property: background-color, border-color, color, box-shadow, filter, transform;
+  user-select: none;
+  vertical-align: middle;
+  transform: translate3d(0px, 0px, 0px);
+  padding: 0px;
+  min-inline-size: 0px;
+  align-self: center;
+}
+
+#detail-window .details-header .button-wrap .symbol-wrap1 {
+  box-sizing: border-box;
+  position: relative;
+  background-color: #1ed760;
+  color: #000000;
+  display: flex;
+  border-radius: 500px;
+  font-size: inherit;
+  min-block-size: 56px;
+  align-items: center;
+  justify-content: center;
+  inline-size: 56px;
+  block-size: 56px;
+}
+
+#detail-window .details-header .button-wrap .symbol-wrap2 {
+  display: flex;
+  position: absolute;
+  top: 14px;
+  left: 14px;
+}
+
+/* 
+  * SEARCH BAR
+  */
+
+.search-bar {
+  flex: 0 1 364px;
+  position: relative;
+  -webkit-app-region: no-drag;
+  pointer-events: auto;
+}
+
+.search-bar form {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  vertical-align: baseline;
+}
+
+.search-bar input {
+  background-color: #242424;
+  border: 0;
+  border-radius: 500px;
+  color: #fff!important;
+  height: 48px;
+  padding: 6px 36px;
+  text-overflow: ellipsis;
+  width: 100%;
+  font-size: 0.875rem;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+  margin-block: 0px;
+  font-weight: 400;
+  font-family: var(--font-family,CircularSp,CircularSp-Arab,CircularSp-Hebr,CircularSp-Cyrl,CircularSp-Grek,CircularSp-Deva,var(--fallback-fonts,sans-serif));
+  text-transform: none;
+}
+
+.search-bar input:focus {
+  box-shadow: 0 0 0 2px #fff;
+  outline: none;
+}
+
+/*
+ * CONTROL PANEL
+ */
+
+.control-buttons, .panel-buttons {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center; /* Optional: Align items vertically in the center */
+  gap: 20px; /* Set the gap between flex items */
+}
+
+.control-button, .panel-button {
+  height: 24px;
+  width: 24px;
+  background-color: transparent;
+  border: 0;
+  color: hsla(0,0%,100%,.7);
+  transition: color 3s;
+}
+
+.control-button.active, .panel-button.active {
+  color: #fff;
+  transition: color 3s;
+}
+
+.control-button svg, .panel-button svg  {
+  fill: currentColor;
+}
+
+button {
+  cursor: pointer;
+}
+
+button[data-ctr="albums"] {
+  margin-top: 2px;
+}
+
+
+button[data-ctr="turntable"] {
+  margin-top: -5px;
+}
+
+
+/* 
+  * RECENT ITEMS
+  */
+
+.recents-title {
+  align-items: center; /* Optional: Center vertically if needed */
+  display: flex;
+  color: hsla(0, 0%, 100%, .7);
+  height: 32px;
+  grid-gap: 8px;
+  font-size: 0.875rem;
+  justify-content: flex-end; /* Shift elements to the right */
+}
+
+.down-arrow {
+  fill: currentColor;
+}
+
+#recent-list {
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  height: auto;
+  padding: .5rem;
+  -webkit-overflow-scrolling: touch;
+  -ms-overflow-style: none;
+  gap: 10px;
+}
+
+#recent-list::-webkit-scrollbar {
+  display: none;
+}
+
+#recent-list .recent-item {
+  display: grid;
+  gap: 8px 12px;
+  grid-template-columns: auto 1fr;
+  grid-auto-rows: auto 1fr auto;
+}
+
+#recent-list .recent-item .recent-image {
+  width: 48px;
+  height: 48px;
+  margin-right: 8px;
+}
+
+#recent-list .recent-item .recent-image img {
+  width: 100%;
+  height: 100%;
+}
+
+#recent-list .recent-item .recent-item-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+#recent-list .recent-item .recent-name {
+  font-size: 1rem;
+  font-weight: 400;
+  font-family: var(--font-family,CircularSp,CircularSp-Arab,CircularSp-Hebr,CircularSp-Cyrl,CircularSp-Grek,CircularSp-Deva,var(--fallback-fonts,sans-serif));
+  color: var(--text-base,#000000);
+}
+
+#recent-list .recent-item .recent-artist {
+  font-size: 0.875rem;
+  font-weight: 400;
+  font-family: var(--font-family,CircularSp,CircularSp-Arab,CircularSp-Hebr,CircularSp-Cyrl,CircularSp-Grek,CircularSp-Deva,var(--fallback-fonts,sans-serif));
+  color: var(--text-subdued,#6a6a6a);
+}
+
+#recent-list .recent-item {
+  cursor: pointer;
+}
+
+/*
+ * THROWBACK ITEMS
+ */
+
+.main-panel-title-2 {
+  display: inline-block;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.5rem;
+  font-weight: 700;
+  font-family: var(--font-family,CircularSpTitle,CircularSpTitle-Tall,CircularSp-Arab,CircularSp-Hebr,CircularSp-Cyrl,CircularSp-Grek,CircularSp-Deva,var(--fallback-fonts,sans-serif));
+}
+
+
+#throwback-list {
+  display: grid;
+  grid-gap: 24px;
+  grid-template-columns: repeat(4,minmax(0,1fr));
+}
+
+#throwback-list>.album {
+  -webkit-box-flex: 1;
+  background: #181818;
+  -ms-flex: 1;
+  flex: 1;
+  isolation: isolate;
+  padding: 16px;
+  position: relative;
+  -webkit-transition: background-color .3s ease;
+  transition: background-color .3s ease;
+}
+
+#throwback-list>.album:hover {
+  background: #282828;
+}
+
+#throwback-list>.album {
+  padding: 16px;
+  transition: all 0.5s;
+}
+
+#throwback-list>.album:hover {
+  background: #282828;
+}
+
+#throwback-list>.album .image {
+  position: relative;
+  width: 100%;
+}
+
+#throwback-list>.album img {
+  width: 100%;
+}
+
+#throwback-list>.album .name {
+  font-size: 1rem;
+  font-weight: 700;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+#throwback-list>.album .more {
+  margin-top: 10px;
+  font-size: 0.875rem;
+  color: #b3b3b3;
+  font-weight: 400;
+}
+
+#throwback-list>.album button {
+  opacity: 0;
+  pointer-events: auto;
+  position: absolute;
+  right: 8px;
+  bottom: 0;
+  border: 0;
+  margin: 0;
+  padding: 0;
+  vertical-align: baseline;
+  z-index: 1;
+  background-color: #1ed760;
+  color: #000;
+  border-radius: 500px;
+  min-block-size: 48px;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  inline-size: 48px;
+  block-size: 48px;
+  transition: all 0.5s;
+}
+
+#throwback-list>.album:hover button {
+  opacity: 1;
+  bottom: 8px;
+}
+
+#throwback-list>.album button:hover {
+  background-color: #1fdf64;
+  transform: scale(1.04);
+}
+
+#throwback-list .throwback-item {
+  cursor: pointer;
+}
+
+/*
+  * WECOME MESSAGE
+  */  
+
+#welcome {
+  background-color: #242424;
+  border: 0;
+  border-radius: 25px;
+  margin: 0 50px 0 50px;
+  padding: 0 30px 20px 30px
+}
